@@ -9,37 +9,37 @@ namespace NooBIT.Model.Contracts
     {
         [ScaffoldColumn(false)]
         [Column(TypeName = "datetime2")]
-        public DateTime CreatedDateUtc { get; set; }
+        public virtual DateTime CreatedDateUtc { get; set; }
 
         [MaxLength(256)]
         [ScaffoldColumn(false)]
-        public string CreatedBy { get; set; }
+        public virtual string CreatedBy { get; set; }
 
         [ScaffoldColumn(false)]
         [Column(TypeName = "datetime2")]
-        public DateTime UpdatedDateUtc { get; set; }
+        public virtual DateTime UpdatedDateUtc { get; set; }
 
         [MaxLength(256)]
         [ScaffoldColumn(false)]
-        public string UpdatedBy { get; set; }
+        public virtual string UpdatedBy { get; set; }
     }
 
     public abstract class AuditableEntity : BaseEntity, IAuditableEntity
     {
         [ScaffoldColumn(false)]
         [Column(TypeName = "datetime2")]
-        public DateTime CreatedDateUtc { get; set; }
+        public virtual DateTime CreatedDateUtc { get; set; }
 
         [MaxLength(256)]
         [ScaffoldColumn(false)]
-        public string CreatedBy { get; set; }
+        public virtual string CreatedBy { get; set; }
 
         [ScaffoldColumn(false)]
         [Column(TypeName = "datetime2")]
-        public DateTime UpdatedDateUtc { get; set; }
+        public virtual DateTime UpdatedDateUtc { get; set; }
 
         [MaxLength(256)]
         [ScaffoldColumn(false)]
-        public string UpdatedBy { get; set; }
+        public virtual string UpdatedBy { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NooBIT.Model.Entities;
+using NooBIT.Model.Paging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,12 +9,16 @@ namespace NooBIT.Model.Extensions
 {
     public static class QueryableExtensions
     {
+        public static PagedQueryable<T> Page<T>(this IQueryable<T> query, int page, int pageSize) where T : class, IEntity
+            => new PagedQueryable<T>(query, page, pageSize);
+
         #region OrderBy
 
         public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> queryable,
             IEnumerable<KeyValuePair<Expression<Func<TEntity, object>>, OrderByDirection>> expressions)
         {
-            if (expressions == null) return queryable;
+            if (expressions == null)
+                return queryable;
 
             // http://stackoverflow.com/a/9155222/304832
             // first expression is passed to OrderBy/Descending, others are passed to ThenBy/Descending
@@ -22,7 +28,7 @@ namespace NooBIT.Model.Extensions
                 var unaryExpression = expression.Key.Body as UnaryExpression;
                 var memberExpression = unaryExpression?.Operand as MemberExpression;
                 var methodExpression = unaryExpression?.Operand as MethodCallExpression;
-                var memberOrMethodExpression = memberExpression ?? (Expression) methodExpression;
+                var memberOrMethodExpression = memberExpression ?? (Expression)methodExpression;
 
                 if (unaryExpression != null && memberOrMethodExpression != null)
 
@@ -111,8 +117,8 @@ namespace NooBIT.Model.Extensions
                     : queryable.OrderByDescending(keySelector);
             else
                 queryable = direction == OrderByDirection.Ascending
-                    ? ((IOrderedQueryable<TEntity>) queryable).ThenBy(keySelector)
-                    : ((IOrderedQueryable<TEntity>) queryable).ThenByDescending(keySelector);
+                    ? ((IOrderedQueryable<TEntity>)queryable).ThenBy(keySelector)
+                    : ((IOrderedQueryable<TEntity>)queryable).ThenByDescending(keySelector);
             return queryable;
         }
 

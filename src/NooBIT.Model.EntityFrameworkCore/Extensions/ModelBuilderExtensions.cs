@@ -9,7 +9,8 @@ namespace NooBIT.Model.Extensions
     {
         public static ModelBuilder UseTableNameConvention(this ModelBuilder modelBuilder)
         {
-            foreach (var entity in modelBuilder.Model.GetEntityTypes()) entity.Relational().TableName = entity.DisplayName();
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+                entity.Relational().TableName = entity.DisplayName();
 
             return modelBuilder;
         }

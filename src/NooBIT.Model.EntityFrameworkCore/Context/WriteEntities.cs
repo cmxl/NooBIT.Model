@@ -21,7 +21,8 @@ namespace NooBIT.Model.Context
                 _context.Set<TEntity>().Remove(entity);
         }
 
-        public void BulkDelete<TEntity>(IEnumerable<TEntity> entities) where TEntity : class, IEntity => _context.Set<TEntity>().RemoveRange(entities);
+        public void BulkDelete<TEntity>(IEnumerable<TEntity> entities) where TEntity : class, IEntity 
+            => _context.Set<TEntity>().RemoveRange(entities);
 
         public void Create<TEntity>(TEntity entity) where TEntity : class, IEntity
         {
@@ -38,13 +39,13 @@ namespace NooBIT.Model.Context
         public void BulkUpdate<TEntity>(IEnumerable<TEntity> entities) where TEntity : class, IEntity 
             => _context.Set<TEntity>().UpdateRange(entities);
 
-        public async Task Reload<TEntity>(TEntity entity, CancellationToken token) where TEntity : class, IEntity 
+        public async Task Reload<TEntity>(TEntity entity, CancellationToken token = default) where TEntity : class, IEntity 
             => await _context.Entry(entity).ReloadAsync(token);
 
-        public async Task<int> ExecuteRawQuery(string commandText, object[] commandParameters, CancellationToken token) 
+        public async Task<int> ExecuteRawQuery(string commandText, object[] commandParameters, CancellationToken token = default) 
             => await _context.Database.ExecuteSqlCommandAsync(commandText, token, commandParameters);
 
-        public async Task<List<TEntity>> ExecuteRawQuery<TEntity>(string commandText, object[] commandParameters, CancellationToken token) where TEntity : class 
+        public async Task<List<TEntity>> ExecuteRawQuery<TEntity>(string commandText, object[] commandParameters, CancellationToken token = default) where TEntity : class 
             => await _context.Set<TEntity>().FromSql(commandText, commandParameters).ToListAsync(token);
     }
 }

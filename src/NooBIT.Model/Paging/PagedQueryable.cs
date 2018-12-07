@@ -1,9 +1,9 @@
-﻿using System;
+﻿using NooBIT.Model.Entities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using NooBIT.Model.Entities;
 
 namespace NooBIT.Model.Paging
 {
@@ -20,18 +20,14 @@ namespace NooBIT.Model.Paging
             CurrentPage = page;
         }
 
-        public override int PageCount => (int) Math.Ceiling((double) RowCount / PageSize);
-        public override int RowCount => _rowCount.Value;
-
         public IEnumerator<T> GetEnumerator()
-        {
-            return _pagedQuery.GetEnumerator();
-        }
+            => _pagedQuery.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+            => GetEnumerator();
+
+        public override int PageCount => (int)Math.Ceiling((double)RowCount / PageSize);
+        public override int RowCount => _rowCount.Value;
 
         public Type ElementType => _pagedQuery.ElementType;
         public Expression Expression => _pagedQuery.Expression;

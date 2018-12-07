@@ -17,10 +17,8 @@ namespace NooBIT.Model.Context
             _context = context;
         }
 
-        public IQueryable<TEntity> Get<TEntity>() where TEntity : class, IEntity
-        {
-            return _context.Set<TEntity>();
-        }
+        public IQueryable<TEntity> Get<TEntity>() where TEntity : class, IEntity 
+            => _context.Set<TEntity>();
 
         public async Task<TEntity> Get<TEntity>(object firstKeyValue, CancellationToken token = default, params object[] otherKeyValues) where TEntity : class, IEntity
         {
