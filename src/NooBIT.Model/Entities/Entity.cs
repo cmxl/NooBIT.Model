@@ -17,10 +17,7 @@ namespace NooBIT.Model.Entities
         ///     Get the hash code for this entity instance based on its Id property.
         /// </summary>
         /// <returns>The hash code for this object instance based on its Id property.</returns>
-        public override int GetHashCode()
-        {
-            return IsTransient(this) ? 0 : Id.GetHashCode();
-        }
+        public override int GetHashCode() => IsTransient(this) ? 0 : Id.GetHashCode();
 
         /// <summary>
         ///     Determine whether this entity is equal to another object.
@@ -30,10 +27,7 @@ namespace NooBIT.Model.Entities
         ///     True if the other object is an EntityWithId, both entities are not null or
         ///     transient, and both entities have the same Id value. Otherwise, false.
         /// </returns>
-        public override bool Equals(object other)
-        {
-            return Equals(other as Entity<T>);
-        }
+        public override bool Equals(object other) => Equals(other as Entity<T>);
 
         /// <summary>
         ///     Determine whether this entity is equal to another entity.
@@ -46,13 +40,16 @@ namespace NooBIT.Model.Entities
         public virtual bool Equals(Entity<T> other)
         {
             // instance is never equal to null
-            if (other == null) return false;
+            if (other == null)
+                return false;
 
             // when references are equal, they are the same object
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(this, other))
+                return true;
 
             // when either object is transient or the id's are not equal, return false
-            if (IsTransient(this) || IsTransient(other) || !Equals(Id, other.Id)) return false;
+            if (IsTransient(this) || IsTransient(other) || !Equals(Id, other.Id))
+                return false;
 
             // when the id's are equal and neither object is transient
             // return true when one can be cast to the other
@@ -62,15 +59,10 @@ namespace NooBIT.Model.Entities
             return thisType.IsAssignableFrom(otherType) || otherType.IsAssignableFrom(thisType);
         }
 
-        private static bool IsTransient(Entity<T> obj)
-        {
+        private static bool IsTransient(Entity<T> obj) =>
             // an object is transient when its id is the default (null for strings or 0 for numbers)
-            return Equals(obj.Id, default(T));
-        }
+            Equals(obj.Id, default(T));
 
-        private Type GetUnproxiedType()
-        {
-            return GetType(); // return the unproxied type of the object
-        }
+        private Type GetUnproxiedType() => GetType(); // return the unproxied type of the object
     }
 }
