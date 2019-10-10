@@ -1,4 +1,4 @@
-version: 6.0.0
+version: 6.0.1
 
 environment:
   nuget_token:
@@ -30,7 +30,7 @@ matrix:
 build_script:
   - cmd: dotnet restore
   - cmd: dotnet build NooBIT.Model.sln -c Release /p:DebugType=Full
-  - cmd: dotnet pack -c Release --no-build --include-symbols -o ..\..\artifacts /p:PackageVersion=%APPVEYOR_BUILD_VERSION%
+  - cmd: dotnet pack -c Release --no-build --include-symbols -o artifacts /p:PackageVersion=%APPVEYOR_BUILD_VERSION%
   - cmd: dotnet nuget push artifacts\NooBIT.Model.%APPVEYOR_BUILD_VERSION%.nupkg -k %nuget_token% -s https://www.nuget.org/api/v2/package
   - cmd: dotnet nuget push artifacts\NooBIT.Model.MediatR.%APPVEYOR_BUILD_VERSION%.nupkg -k %nuget_token% -s https://www.nuget.org/api/v2/package
   - cmd: dotnet nuget push artifacts\NooBIT.Model.EntityFrameworkCore.%APPVEYOR_BUILD_VERSION%.nupkg -k %nuget_token% -s https://www.nuget.org/api/v2/package
