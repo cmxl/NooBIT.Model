@@ -12,9 +12,6 @@ namespace NooBIT.Model.Queries
             _readEntities = readEntities;
         }
 
-        public IQueryable<TEntity> Get()
-        {
-            return _readEntities.Get<TEntity>();
-        }
+        public IQueryable<TEntity> Get() => _readEntities.Get<TEntity>();
     }
 }

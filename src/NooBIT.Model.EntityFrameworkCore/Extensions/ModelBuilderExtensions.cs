@@ -10,7 +10,7 @@ namespace NooBIT.Model.Extensions
         public static ModelBuilder UseTableNameConvention(this ModelBuilder modelBuilder)
         {
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
-                entity.Relational().TableName = entity.DisplayName();
+                entity.SetTableName(entity.DisplayName());
 
             return modelBuilder;
         }
@@ -19,7 +19,7 @@ namespace NooBIT.Model.Extensions
         {
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             foreach (var index in entity.GetIndexes())
-                index.Relational().Name = "UX_" + entity.DisplayName() + "_" + index.DeclaringEntityType.Name;
+                index.SetName("UX_" + entity.DisplayName() + "_" + index.DeclaringEntityType.Name);
 
             return modelBuilder;
         }
