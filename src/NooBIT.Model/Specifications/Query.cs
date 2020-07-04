@@ -11,6 +11,7 @@ namespace NooBIT.Model.Specifications
         internal readonly List<Expression<Func<TEntity, bool>>> _wheres = new List<Expression<Func<TEntity, bool>>>();
         internal readonly List<KeyValuePair<Expression<Func<TEntity, object>>, OrderByDirection>> _orders = new List<KeyValuePair<Expression<Func<TEntity, object>>, OrderByDirection>>();
         internal Expression<Func<TEntity, TResult>> _selector;
+        internal bool _distinct = false;
         internal int? _skip = null;
         internal int? _take = null;
         private bool IsPaging => _skip.HasValue && _take.HasValue;
@@ -31,7 +32,12 @@ namespace NooBIT.Model.Specifications
             if (_selector == null)
                 throw new InvalidOperationException("Cannot query data without selector");
 
-            return query.Select(_selector);
+            var q = query.Select(_selector);
+
+            if (_distinct)
+                return q.Distinct();
+
+            return q;
         }
     }
 

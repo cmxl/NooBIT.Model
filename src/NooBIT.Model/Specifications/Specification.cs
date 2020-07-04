@@ -22,6 +22,7 @@ namespace NooBIT.Model.Specifications
 
     public abstract class Specification<TEntity> : Specification<TEntity, TEntity>, ISpecification<TEntity> where TEntity : class, IEntity
     {
+        public Specification() : base(new QueryBuilder<TEntity>()) { }
     }
 
 }

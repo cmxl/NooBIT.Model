@@ -17,8 +17,14 @@ namespace NooBIT.Model.Specifications
     {
         private readonly Query<TEntity, TResult> _query = new Query<TEntity, TResult>();
 
-        public virtual IQuery<TEntity, TResult> Build() 
+        public virtual IQuery<TEntity, TResult> Build()
             => _query;
+
+        public IQueryBuilder<TEntity, TResult> Distinct()
+        {
+            _query._distinct = true;
+            return this;
+        }
 
         public IQueryBuilder<TEntity, TResult> OrderBy(Expression<Func<TEntity, object>> expression)
         {
