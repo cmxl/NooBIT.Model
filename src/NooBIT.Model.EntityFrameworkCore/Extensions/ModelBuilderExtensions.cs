@@ -29,7 +29,7 @@ namespace NooBIT.Model.Extensions
             foreach (var entity in modelBuilder.Model.GetEntityTypes().Where(x => x.GetProperties().Any(y => y.ClrType == typeof(DateTime) || y.ClrType == typeof(DateTime?))))
             {
                 var properties = entity.GetProperties().Where(x => x.ClrType == typeof(DateTime) || x.ClrType == typeof(DateTime?)).Select(x => x.Name);
-                foreach (var property in properties) modelBuilder.Entity(entity.Name).Property(property).HasColumnType("datetime2");
+                foreach (var property in properties) modelBuilder.Entity(entity.Name).Property(property).HasColumnType("datetime2(7)");
             }
 
             return modelBuilder;
