@@ -1,9 +1,8 @@
-﻿using NooBIT.Model.Entities;
-using NooBIT.Model.Specifications;
+﻿using NooBIT.Model.Specifications;
 
 namespace NooBIT.Model.EntityFrameworkCore.Specifications
 {
-    public class IncludeQueryBuilder<TEntity, TResult> : QueryBuilder<TEntity, TResult>, IIncludeQueryBuilder<TEntity, TResult> where TEntity : class, IEntity
+    public class IncludeQueryBuilder<TEntity, TResult> : QueryBuilder<TEntity, TResult>, IIncludeQueryBuilder<TEntity, TResult> where TEntity : class
     {
         private readonly IncludeQuery<TEntity, TResult> _query = new IncludeQuery<TEntity, TResult>();
 
@@ -21,7 +20,7 @@ namespace NooBIT.Model.EntityFrameworkCore.Specifications
         }
     }
 
-    public class IncludeQueryBuilder<TEntity> : IncludeQueryBuilder<TEntity, TEntity>, IIncludeQueryBuilder<TEntity> where TEntity : class, IEntity
+    public class IncludeQueryBuilder<TEntity> : IncludeQueryBuilder<TEntity, TEntity>, IIncludeQueryBuilder<TEntity> where TEntity : class
     {
         public IncludeQueryBuilder()
         {

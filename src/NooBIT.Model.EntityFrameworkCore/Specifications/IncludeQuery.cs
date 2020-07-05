@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NooBIT.Model.Entities;
 using NooBIT.Model.Specifications;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace NooBIT.Model.EntityFrameworkCore.Specifications
 {
-    internal class IncludeQuery<TEntity, TResult> : IIncludeQuery<TEntity, TResult> where TEntity : class, IEntity
+    internal class IncludeQuery<TEntity, TResult> : IIncludeQuery<TEntity, TResult> where TEntity : class
     {
         internal IQuery<TEntity, TResult> _baseQuery;
         internal List<string> _includes = new List<string>();
