@@ -19,7 +19,7 @@ namespace NooBIT.Model.Extensions
         {
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             foreach (var index in entity.GetIndexes())
-                index.SetName("UX_" + entity.DisplayName() + "_" + index.DeclaringEntityType.Name);
+                index.SetDatabaseName("UX_" + entity.DisplayName() + "_" + index.DeclaringEntityType.Name);
 
             return modelBuilder;
         }
