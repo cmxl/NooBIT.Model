@@ -21,6 +21,6 @@ namespace NooBIT.Model.MediatR
         }
 
         public async Task<int> Handle(RawCommand request, CancellationToken token)
-            => await _writeEntities.ExecuteRawQuery(request.CommandText, request.CommandParameters, token);
+            => await _writeEntities.ExecuteRawQuery(request.CommandText, request.CommandParameters, token).ConfigureAwait(false);
     }
 }

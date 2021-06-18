@@ -40,12 +40,12 @@ namespace NooBIT.Model.Context
             => _context.Set<TEntity>().UpdateRange(entities);
 
         public async Task Reload<TEntity>(TEntity entity, CancellationToken token = default) where TEntity : class, IEntity 
-            => await _context.Entry(entity).ReloadAsync(token);
+            => await _context.Entry(entity).ReloadAsync(token).ConfigureAwait(false);
 
         public async Task<int> ExecuteRawQuery(string commandText, object[] commandParameters, CancellationToken token = default) 
-            => await _context.Database.ExecuteSqlRawAsync(commandText, token, commandParameters);
+            => await _context.Database.ExecuteSqlRawAsync(commandText, token, commandParameters).ConfigureAwait(false);
 
         public async Task<List<TEntity>> ExecuteRawQuery<TEntity>(string commandText, object[] commandParameters, CancellationToken token = default) where TEntity : class 
-            => await _context.Set<TEntity>().FromSqlRaw(commandText, commandParameters).ToListAsync(token);
+            => await _context.Set<TEntity>().FromSqlRaw(commandText, commandParameters).ToListAsync(token).ConfigureAwait(false);
     }
 }

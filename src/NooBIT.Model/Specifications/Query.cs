@@ -8,8 +8,8 @@ namespace NooBIT.Model.Specifications
 {
     public class Query<TEntity, TResult> : IQuery<TEntity, TResult>
     {
-        internal readonly List<Expression<Func<TEntity, bool>>> _wheres = new List<Expression<Func<TEntity, bool>>>();
-        internal readonly List<KeyValuePair<Expression<Func<TEntity, object>>, OrderByDirection>> _orders = new List<KeyValuePair<Expression<Func<TEntity, object>>, OrderByDirection>>();
+        internal readonly List<Expression<Func<TEntity, bool>>> _wheres = new();
+        internal readonly List<KeyValuePair<Expression<Func<TEntity, object>>, OrderByDirection>> _orders = new();
         internal Expression<Func<TEntity, TResult>> _selector;
         internal bool _distinct = false;
         internal int? _skip = null;

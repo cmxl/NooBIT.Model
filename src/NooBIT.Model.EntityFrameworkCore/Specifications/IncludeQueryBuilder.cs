@@ -4,7 +4,7 @@ namespace NooBIT.Model.EntityFrameworkCore.Specifications
 {
     public class IncludeQueryBuilder<TEntity, TResult> : QueryBuilder<TEntity, TResult>, IIncludeQueryBuilder<TEntity, TResult> where TEntity : class
     {
-        private readonly IncludeQuery<TEntity, TResult> _query = new IncludeQuery<TEntity, TResult>();
+        private readonly IncludeQuery<TEntity, TResult> _query = new();
 
         public IIncludeQueryBuilder<TEntity, TResult> Include(string path)
         {

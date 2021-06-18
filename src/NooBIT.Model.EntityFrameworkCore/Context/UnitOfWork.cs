@@ -30,7 +30,7 @@ namespace NooBIT.Model.Context
 
             foreach (var entry in entries)
             {
-                if (!(entry.Entity is IAuditableEntity entity))
+                if (entry.Entity is not IAuditableEntity entity)
                     continue;
 
                 var name = principal?.Identity?.Name ?? string.Empty;
@@ -55,19 +55,19 @@ namespace NooBIT.Model.Context
         public async Task<int> SaveChangesAsync(CancellationToken token = default)
         {
             SetAuditableEntityProperties(null);
-            return await _context.SaveChangesAsync(token);
+            return await _context.SaveChangesAsync(token).ConfigureAwait(false);
         }
 
         public async Task<int> SaveChangesAsync(IPrincipal principal, CancellationToken token = default)
         {
             SetAuditableEntityProperties(principal);
-            return await _context.SaveChangesAsync(token);
+            return await _context.SaveChangesAsync(token).ConfigureAwait(false);
         }
 
-        public Task DiscardChanges(CancellationToken token = default)
+        public async Task DiscardChanges(CancellationToken token = default)
         {
             if (!_context.ChangeTracker.HasChanges())
-                return Task.FromResult<object>(null);
+                return;
 
             var reloadTasks = new List<Task>();
             foreach (var entry in _context.ChangeTracker.Entries().Where(x => x != null))
@@ -83,7 +83,7 @@ namespace NooBIT.Model.Context
                         reloadTasks.Add(entry.ReloadAsync(token));
                         break;
                 }
-            return Task.WhenAll(reloadTasks);
+            await Task.WhenAll(reloadTasks).ConfigureAwait(false);
         }
     }
 }

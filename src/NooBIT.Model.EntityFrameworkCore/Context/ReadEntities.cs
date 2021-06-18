@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using NooBIT.Model.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using System.Collections;
 
 namespace NooBIT.Model.Context
 {
@@ -20,12 +22,12 @@ namespace NooBIT.Model.Context
         public IQueryable<TEntity> Get<TEntity>() where TEntity : class, IEntity 
             => _context.Set<TEntity>();
 
-        public async Task<TEntity> Get<TEntity>(object firstKeyValue, CancellationToken token = default, params object[] otherKeyValues) where TEntity : class, IEntity
+        public async Task<TEntity> Get<TEntity>(object firstKeyValue, CancellationToken token, params object[] otherKeyValues) where TEntity : class, IEntity
         {
             if (firstKeyValue == null) throw new ArgumentNullException(nameof(firstKeyValue));
             var keyValues = new List<object> {firstKeyValue};
             if (otherKeyValues != null) keyValues.AddRange(otherKeyValues);
-            return await _context.Set<TEntity>().FindAsync(token, keyValues.ToArray());
+            return await _context.Set<TEntity>().FindAsync(token, keyValues.ToArray()).ConfigureAwait(false);
         }
     }
 }

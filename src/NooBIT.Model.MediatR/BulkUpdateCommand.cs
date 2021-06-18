@@ -34,7 +34,7 @@ namespace NooBIT.Model.MediatR
             _writeEntities.BulkUpdate(command.Entities);
 
             if (command.Commit)
-                await _unitOfWork.SaveChangesAsync(token);
+                await _unitOfWork.SaveChangesAsync(token).ConfigureAwait(false);
 
             return Unit.Value;
         }

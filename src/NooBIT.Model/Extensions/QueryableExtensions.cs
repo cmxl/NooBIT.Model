@@ -10,7 +10,7 @@ namespace NooBIT.Model.Extensions
     public static class QueryableExtensions
     {
         public static PagedQueryable<T> Page<T>(this IQueryable<T> query, int page, int pageSize) where T : class, IEntity
-            => new PagedQueryable<T>(query, page, pageSize);
+            => new(query, page, pageSize);
 
         #region OrderBy
 
